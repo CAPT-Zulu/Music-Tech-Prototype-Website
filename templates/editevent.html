@@ -1,0 +1,118 @@
+{% extends 'layout.html' %}
+
+{% block mainContent %}
+    <div id="Main Content" class="container-100">
+        <div class="position-relative text-center p-2 rounded">
+            <h1>Edit Event</h1>
+        </div>
+        <div class="row text-center p-4 m-4 rounded" style="background-color: #5f788a">
+            <div class="">
+                <form method="POST" enctype=multipart/form-data novalidate>
+                    {{ form.csrf_token }} <!-- essential -->
+                    <div class="form-group row p-3">
+                        <p class="col-form-label">Event Name:</p>
+                        <div class="">{{ form.name (size=25, class="form-control", value=result_event[1]) }}
+                            {% if form.name.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-group row p-3">
+                        <p class="col-form-label">Event Description</p>
+                        <div class="">{{ form.description (size=25, class="form-control", value=result_event[2]) }}
+                            {% if form.description.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.description.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-group row p-3">
+                        <p class="col-form-label">Event Location:</p>
+                        <div class="">{{ form.location (size=25, class="form-control", value=result_event[3]) }}
+                            {% if form.location.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.location.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-group row p-3">
+                        <p class="col-form-label">Event Start Time: (Example foramt: 2021-10-17 09:30:00)</p>
+                        <div class="">{{ form.starttime (size=25, class="form-control", value=result_event[4]) }}
+                            {% if form.starttime.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.starttime.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-group row p-3">
+                        <p class="col-form-label">Event End Time: (Example foramt: 2021-10-17 09:30:00)</p>
+                        <div class="">{{ form.endtime (size=25, class="form-control", value=result_event[5]) }}
+                            {% if form.endtime.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.endtime.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+{#                    <div class="form-group row p-3">#}
+{#                        <p class="col-form-label">Do you wish to use a layout?:</p>#}
+{#                        <select class="form-control" name="layout" multiple>#}
+{#                            <option value="0" selected>No layouts avaliable</option>#}
+{#                            {% for class in classes[0] %}#}
+{#                                <option value="{{ class[0] }}">{{ class[4] }} Class: {{ class[2] }}</option>#}
+{#                            {% endfor %}#}
+{#                        </select>#}
+{#                        {% if form.layout.errors %}#}
+{#                            <div class="text-danger">#}
+{#                                {% for error in form.layout.errors %}#}
+{#                                    <span>{{ error }}</span>#}
+{#                                {% endfor %}#}
+{#                            </div>#}
+{#                        {% endif %}#}
+{#                    </div>#}
+                    <div class="form-group row p-3">
+                        <p class="col-form-label">Select avalible jobs for the event: (Shift or ctrl click to select multiple topics) Begin typing a name to filter...</p>
+                        <select class="form-control" name="jobs" multiple>
+                            {% for job in avaliable_jobs %}
+                                {% if job[0] in results_jobs %}
+                                    <option value="{{ job[0] }}" selected>{{ job[1] }}</option>
+                                {% else %}
+                                    <option value="{{ job[0] }}">{{ job[1] }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        {% if form.jobs.errors %}
+                            <div class="text-danger">
+                                {% for error in form.jobs.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group row p-1">
+                        {{ form.submit (class="btn btn-primary") }}
+                    </div>
+                    <br>
+                    <div class="form-group row p-1">
+                        <button type="submit" name="delete_btn" value="delete" class="btn btn-warning">Delete this event <i class="bi bi-exclamation-triangle-fill"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

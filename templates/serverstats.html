@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block mainContent %}
+    <div id="Main Content" class="container-100">
+        <div class="position-relative text-center p-2 rounded">
+            <h1>Server Stats</h1>
+        </div>
+        <div class="row text-center p-4 m-4 rounded" style="background-color: #5f788a">
+            {% for serverStat in serverStats %}
+                    <p>{{ serverStat }}</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
